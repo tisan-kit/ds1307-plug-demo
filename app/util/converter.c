@@ -72,3 +72,53 @@ u32_to_str(unsigned int val)
 
         return &num_str[pos];
 }
+
+// change character string to Integer
+unsigned int strbuf_to_u32(char str[],  int len)
+{
+    unsigned int acc = 0;
+    int i,c;
+
+    for(i = 0; i < len; i++)
+    {
+    	c = str[i] - '0';
+    	acc *= 10;
+    	acc += c;
+    }
+
+    return acc;
+}
+
+int DectoBCD(int Dec, unsigned char *Bcd, int length)
+{
+     int i;
+     int temp;
+     for(i=length-1; i>=0; i--)
+     {
+         temp = Dec%100;
+         Bcd[i] = ((temp/10)<<4) + ((temp%10) & 0x0F);
+         Dec /= 100;
+     }
+     return 0;
+}
+
+unsigned char BCDtoHEX(unsigned char bcd)
+{
+	unsigned char temp = bcd;
+	return ((temp>>4)*10) + (bcd&0x0f);
+}
+
+unsigned long HextoDec(const unsigned char *hex, int length)
+{
+    int i;
+    unsigned long rslt = 0;
+    for(i=0; i<length; i++)
+    {
+        rslt += (unsigned long)(hex[i])<<(8*(length-1-i));
+
+    }
+    return rslt;
+}
+
+
+

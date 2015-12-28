@@ -47,8 +47,8 @@ led_set(struct led* value)
 	light_value.pwm_duty[2] = 255-(value->green);
 	peri_rgb_light_param_set(light_value);
 
- //   PRINTF("pwm_freq: %d, pwm_duty_blue: %d, pwm_duty_red: %d, pwm_duty_green: %d\n", light_value.pwm_freq,
- //       (light_value.pwm_duty)[0], (light_value.pwm_duty)[1], (light_value.pwm_duty)[2]);
+    PRINTF("pwm_freq: %d, pwm_duty_blue: %d, pwm_duty_red: %d, pwm_duty_green: %d\n", light_value.pwm_freq,
+        (light_value.pwm_duty)[0], (light_value.pwm_duty)[1], (light_value.pwm_duty)[2]);
 }
 
 void ICACHE_FLASH_ATTR

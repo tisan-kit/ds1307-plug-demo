@@ -14,10 +14,10 @@
 
 #include "c_types.h"
 #include "driver/pwm.h"
+#include "peri_global.h"
 
 #pragma pack(1)
 
-#define PRIV_PARAM_START_SEC		0x7C
 #define PRIV_PARAM_SAVE     0
 
 

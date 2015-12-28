@@ -22,10 +22,20 @@ void auto_check_connect_init(void);
 static void wifi_auto_connect_check(void);
 uint8 g_start_flag = 0;
 
+struct auto_connect_once
+{
+	uint8 state;   //0: not use, 1:use once
+	uint16 counter;
+};
+struct auto_connect_once only_use_once = {0,0};
+#define CONNECT_ONCE_COUNTER_MAX  20
+
+
 void ICACHE_FLASH_ATTR
 auto_check_connect_init(void)
 {
 	static uint8 step = 0;
+	only_use_once.state = 1;
 
 	if(step == 0)
 	{
@@ -35,6 +45,7 @@ auto_check_connect_init(void)
 		os_timer_disarm(&wifi_check_timer2);
 		os_timer_setfn(&wifi_check_timer2, (os_timer_func_t *)auto_check_connect_init, NULL);
 		os_timer_arm(&wifi_check_timer2, 5000, 0);
+		only_use_once.counter = 0;
 	}
 	else
 	{
@@ -158,6 +169,22 @@ wifi_auto_connect_check(void)
 	uint8 connect_status = 0;
 	wifi_get_ip_info(STATION_IF, &device_ip);
 	connect_status = wifi_station_get_connect_status();
+
+	if(only_use_once.state)
+	{
+		only_use_once.counter++;
+
+		if(only_use_once.counter >= CONNECT_ONCE_COUNTER_MAX)
+		{
+			g_start_flag = 0;
+			connecting_bol = 0;
+			os_timer_disarm(&wifi_check_timer2);
+			peri_led_set(1);
+			PRINTF("\nauto link is over. only_use_once.counter:%d.\n", only_use_once.counter);
+			return;
+		}
+	}
+
 	if (connect_status == STATION_GOT_IP && device_ip.ip.addr != 0)
 	{
 		// device has connected the wifi.

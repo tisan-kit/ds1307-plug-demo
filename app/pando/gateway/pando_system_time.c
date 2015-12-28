@@ -28,9 +28,10 @@ static os_timer_t  system_timer;
 void ICACHE_FLASH_ATTR
 pando_set_system_time(uint64 time)
 {
+	int i = 0;
+
     system_time = time;
 
-    int i = 0;
     for(i = 0; i<sizeof(system_time); i++)
     {
     	PRINTF("%02x ", *((unsigned char*)(&system_time) +i));

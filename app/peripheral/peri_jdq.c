@@ -21,7 +21,7 @@
 
 extern uint8_t FLASH_SEC_NUM ;
 
-#define JDQ_FLASH_PRIV_SAVE     FLASH_SEC_NUM
+#define JDQ_FLASH_PRIV_SAVE     1
 uint8 jdq_pin;
 /******************************************************************************
  * FunctionName : peri_jdq_get.

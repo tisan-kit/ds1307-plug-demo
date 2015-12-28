@@ -18,6 +18,7 @@
 #include "mem.h"
 #include "driver/tisan_gpio_intr.h"
 #include "../user/wifi_config.h"
+#include "peri_jdq.h"
  
 
 /******************************************************************************
@@ -29,7 +30,16 @@
 void ICACHE_FLASH_ATTR
 peri_key_short_press(void)
 {
-	  PRINTF("short\n");
+	  PRINTF("short press will set set the jdq \n");
+	  uint8 state = peri_jdq_get();
+	  if(state == 0)
+	  {
+		  peri_jdq_set(1);
+	  }
+	  else
+	  {
+		  peri_jdq_set(0);
+	  }
 }
 
 /******************************************************************************

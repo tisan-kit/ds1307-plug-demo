@@ -12,12 +12,16 @@
 *******************************************************************************/
 
 #include "../peripheral/driver/uart.h"
-#include "objects/led.h"
 #include "os_type.h"
 #include "user_interface.h"
 #include "../peripheral/peri_key.h"
 #include "wifi_config.h"
 #include "../pando/pando_framework.h"
+#include "objects/plug.h"
+#include "objects/devicetime.h"
+#include "objects/weektask.h"
+#include "../peripheral/peri_ds1307.h"
+#include "user_biz.h"
 
 
 /******************************************************************************
@@ -33,11 +37,14 @@ void user_init(void)
 	//long press gpio4, enter into wifi config mode.
 	peri_config_key_init(4);
 	base_keys_init();               //base keys init at the last of every single key init.
-
 	//auto_check_connect_init();
 
 	// add you object init here.
-	led_object_init();
+	plug_object_init();
+	DeviceTime_object_init();
+	weektask_object_init();
+
+	task_timer_set();
 
 	pando_framework_init();
 }

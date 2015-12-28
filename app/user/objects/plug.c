@@ -3,8 +3,10 @@
 #include "c_types.h"
 #include "user_interface.h"
 #include "plug.h"
+
 // add your own includes below
 #define PLUG_OBJECT_NO 1
+
 
 struct plug {
 	uint8 off_on;
@@ -12,7 +14,7 @@ struct plug {
 void ICACHE_FLASH_ATTR
 plug_init() {
 	// TODO: add your object init code here.
-	peri_jdq_init(12);
+	peri_jdq_init(13);
 
 }
 void ICACHE_FLASH_ATTR

@@ -51,7 +51,7 @@ zero_device_data_process(uint8_t * buffer, uint16_t length)
 		PRINTF("PANDO: synchronize time\n");
 		uint64 time = get_next_uint64(cmd_param);
 	    show_package((uint8*)(&time), sizeof(time));
-	    pando_set_system_time(time);
+	    pando_set_system_time(net64_to_host(time));
 	}
 
 }
